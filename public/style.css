@@ -1,0 +1,21 @@
+/* body {
+  background: lime;
+} */
+
+.login-container {
+  width: 400px;
+  margin-top: 50px;
+  text-align: center;
+}
+
+p {
+  margin: 10px 0 !important;
+}
+
+.title {
+  text-transform: capitalize;
+}
+
+.fa-small {
+  font-size: 16px !important;
+}

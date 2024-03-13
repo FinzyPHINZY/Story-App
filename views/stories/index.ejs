@@ -1,0 +1,60 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoryBooks</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header><%- include('../partials/navbar.ejs') %></header>
+    <div class=""><%- include('../partials/addBtn.ejs') %></div>
+    <div class="container">
+      <h1>Stories</h1>
+
+      <div class="row">
+        <% if (!stories) { %>
+        <p>No stories to display</p>
+        <%} else { %> <% stories.forEach(story => { %>
+        <div class="col s12 m4">
+          <div class="card">
+            <div class="card-image">
+              <%- editIcon(story.user,user,stories._id) %>
+            </div>
+            <div class="card-content center-align">
+              <h5 class="title"><%= truncate(story.title,30) %></h5>
+              <p><%= stripTags(truncate(story.body,150)) %></p>
+              <br />
+              <div class="chip">
+                <img src="<%= story.user.image %>" alt="" />
+                <a href="/stories/user/<%= story.user._id %>"
+                  ><%= truncate( story.user.displayName,20) %></a
+                >
+              </div>
+            </div>
+            <div class="card-action center-align">
+              <a href="/stories/<%=stories._id %>" class="btn grey"
+                >Read More</a
+              >
+            </div>
+          </div>
+        </div>
+        <% }); %> <%} %>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      M.Sidenav.init(document.querySelector(".sidenav"));
+    </script>
+  </body>
+</html>

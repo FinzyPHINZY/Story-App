@@ -1,0 +1,58 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StoryBooks</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header><%- include('partials/navbar.ejs') %></header>
+    <div class=""><%- include('partials/addBtn.ejs') %></div>
+    <div class="container">
+      <h3>Welcome <%= name %></h3>
+      <p>Here are your stories...</p>
+
+      <% if(stories) { %>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% stories.forEach(story => {%>
+          <tr>
+            <td class="title">
+              <a href="<%= story._id %>"><%= story.title %></a>
+            </td>
+            <td><%= formatDate(story.createdAt) %></td>
+            <td><span class="dash-status"><%= story.status %> </span></td>
+            <td></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+      <% } else { %>
+      <p>You have not created any stories</p>
+      <% } %>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      M.Sidenav.init(document.querySelector(".sidenav"));
+    </script>
+  </body>
+</html>
