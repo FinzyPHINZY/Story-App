@@ -40,7 +40,21 @@
             </td>
             <td><%= formatDate(story.createdAt) %></td>
             <td><span class="dash-status"><%= story.status %> </span></td>
-            <td></td>
+            <td class="flex">
+              <a href="/stories/edit/<%=story._id  %>" class="btn"
+                ><i class="fas fa-edit"></i
+              ></a>
+              <form
+                action="/stories/<%= story._id %>"
+                method="POST"
+                id="delete-form"
+              >
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit" class="btn red">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
           </tr>
           <% }); %>
         </tbody>

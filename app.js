@@ -3,6 +3,7 @@ const express = require("express");
 const path = require("path");
 const dotenv = require("dotenv");
 const session = require("express-session");
+const methodOverride = require("method-override");
 const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
 const morgan = require("morgan");
@@ -22,6 +23,18 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
+// Method Override
+app.use(
+  methodOverride(function (req, res) {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      // look in urlencoded POST bodies and delete it
+      let method = req.body._method;
+      delete req.body._method;
+      return method;
+    }
+  })
+);
+
 if (process.env.NODE_ENV === "production") {
   app.use(morgan("tiny"));
 }
@@ -40,7 +53,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 60 * 60 * 24 * 90 * 1000,
+      maxAge: 60 * 24 * 90 * 1000,
     },
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }),
   })

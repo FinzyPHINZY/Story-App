@@ -19,3 +19,12 @@ p {
 .fa-small {
   font-size: 16px !important;
 }
+
+.flex {
+  display: flex;
+  gap: 12px;
+}
+
+.dash-status {
+  text-transform: capitalize;
+}
